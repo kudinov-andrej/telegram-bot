@@ -1,11 +1,7 @@
 const axios = require('axios');
-
 const TelegramApi = require('node-telegram-bot-api');
-
 const token = '5985534409:AAFH9VPDBOa0QDmbU34hnaV5tCnLK5cvg8Q';
-
 const bot = new TelegramApi(token, { polling: true })
-
 const button = {
     reply_markup: JSON.stringify({
         inline_keyboard: [
@@ -14,7 +10,6 @@ const button = {
         ]
     })
 }
-
 const start = async () => {
 
     // определяем команды бота
@@ -56,13 +51,13 @@ const start = async () => {
     });
 
 }
-
+// вешаем обработчики на кнопки
 bot.on('callback_query', async msg => {
     const data = msg.data;
     const chatId = msg.message.chat.id;
     const lastName = msg.message.chat.last_name;
     const fistName = msg.message.chat.first_name;
-    console.log(msg)
+
     if (data === '/quote') {
         const { data } = await axios.get('http://api.forismatic.com/api/1.0/?method=getQuote&format=text');
         return bot.sendMessage(chatId, data, button);
