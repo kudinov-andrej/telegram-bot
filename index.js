@@ -10,7 +10,7 @@ const bot = new TelegramApi(token, { polling: true })
 bot.setMyCommands([
     { command: '/start', description: 'Начальное приветствие' },
     { command: '/whatmedo', description: 'Когда не знаешь, что делать' },
-    { command: '/qwit', description: 'Когда нужна светлая мысль' },
+    { command: '/quote', description: 'Когда нужна светлая мысль' },
 ])
 // ставим слушатель на сообщения в боте
 
@@ -36,7 +36,7 @@ bot.on('message', async msg => {
         return bot.sendMessage(chatId, joke);
 
     }
-    if (text === '/qwit') {
+    if (text === '/quote') {
         const { data } = await axios.get('http://api.forismatic.com/api/1.0/?method=getQuote&format=text');
         return bot.sendMessage(chatId, data);
     }
