@@ -12,7 +12,6 @@ bot.setMyCommands([
     { command: '/whatmedo', description: 'Когда не знаешь, что делать' },
     { command: '/qwit', description: 'Когда нужна светлая мысль' },
 ])
-
 // ставим слушатель на сообщения в боте
 
 bot.on('message', async msg => {
