@@ -9,8 +9,7 @@ const bot = new TelegramApi(token, { polling: true })
 const button = {
     reply_markup: JSON.stringify({
         inline_keyboard: [
-            [{ text: 'Старт', callback_data: '/start' },
-            { text: 'Цитата', callback_data: '/quote' },
+            [{ text: 'Цитата', callback_data: '/quote' },
             { text: 'Что делать?', callback_data: '/whatmedo' }]
         ]
     })
@@ -40,7 +39,7 @@ const start = async () => {
             } else {
                 await bot.sendMessage(chatId, `Привет, ${lastName} ${fistName}!`)
             }
-            return bot.sendMessage(chatId, `Добро пожаловать в лучший бот пространства Telegram. Приятного пользования!`, button)
+            return bot.sendMessage(chatId, `Добро пожаловать в бот Quote. Здесь Вы можете вдохновиться мыслями мудрых или придумать, чем заняться;) Приятного пользования!`, button)
         }
         if (text === '/whatmedo') {
             const { data } = await axios.get('http://www.boredapi.com/api/activity?type=diy');
@@ -73,16 +72,5 @@ bot.on('callback_query', async msg => {
         const joke = data.activity;
         return bot.sendMessage(chatId, joke, button);
     }
-    if (data === '/start') {
-        await bot.sendSticker(chatId, 'https://cdn.tlgrm.app/stickers/2f8/602/2f8602cc-ede8-4bf0-b52f-0f4298fc15ec/thumb-animated-128.mp4');
-        if (lastName && fistName === undefined) {
-            // используем метод отправки сообщения sendMessage
-            await bot.sendMessage(chatId, `Привет, друг!`)
-        } else {
-            await bot.sendMessage(chatId, `Привет, ${lastName} ${fistName}!`)
-        }
-        return bot.sendMessage(chatId, `Добро пожаловать в лучший бот пространства Telegram. Приятного пользования!`, button)
-    }
 })
-
 start()
